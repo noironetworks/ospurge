@@ -56,7 +56,6 @@ RESOURCES_CLASSES = [
     'NeutronPorts',
     'NeutronNetworks',
     'NeutronSecgroups',
-    'GlanceImages',
     'SwiftObjects',
     'SwiftContainers',
     'CinderVolumes',
