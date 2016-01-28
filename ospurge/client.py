@@ -994,7 +994,13 @@ def main():
     except (exceptions.DeletionFailed, exceptions.InvalidEndpoint) as exc:
         print("Deletion of {} failed".format(str(exc)))
         print("*Warning* Some resources may not have been cleaned up")
+        if remove_admin_role_after_purge:
+            keystone_manager.undo_become_project_admin(cleanup_project_id)
         sys.exit(constants.DELETION_FAILED_ERROR_CODE)
+    except Exception as exc:
+        if remove_admin_role_after_purge:
+            keystone_manager.undo_become_project_admin(cleanup_project_id)
+        sys.exit(exc)
 
     if (not args.dry_run) and (not args.dont_delete_project) and (not args.own_project):
         keystone_manager.delete_project(cleanup_project_id)

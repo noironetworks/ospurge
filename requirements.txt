@@ -3,7 +3,7 @@ python-cinderclient
 python-glanceclient
 python-heatclient
 python-keystoneclient
-python-neutronclient
+python-neutronclient>=2.3.11,<3
 python-novaclient
 python-swiftclient
 python-group-based-policy-client
