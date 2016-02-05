@@ -37,7 +37,7 @@ import glanceclient.exc
 from glanceclient.v1 import client as glance_client
 from heatclient import client as heat_client
 import heatclient.openstack.common.apiclient.exceptions
-from keystoneclient.apiclient import exceptions as api_exceptions
+from keystoneclient import exceptions as api_exceptions
 import keystoneclient.openstack.common.apiclient.exceptions
 from keystoneclient.v2_0 import client as keystone_client
 import neutronclient.common.exceptions
@@ -46,7 +46,7 @@ from novaclient import client as nova_client
 import novaclient.exceptions
 import requests
 from swiftclient import client as swift_client
-from gbpclient.v2_0 import client as gbp_client 
+from gbpclient.v2_0 import client as gbp_client
 
 from ospurge import base
 from ospurge import constants
@@ -556,7 +556,7 @@ class GBPResources(base.Resources):
         # keyword filtering parameter. An extra check does not cost much and
         # keeps us on the safe side.
         return res['tenant_id'] == self.project_id
-    
+
 class GBPPolicyTarget(GBPResources):
 
     def list(self):
@@ -601,7 +601,7 @@ class GBPL2Policy(GBPResources):
     @staticmethod
     def resource_str(l2policy):
         return "L2 policy {} (id {})".format(l2policy['name'], l2policy['id'])
-    
+
 class GBPL3Policy(GBPResources):
 
     def list(self):
@@ -646,7 +646,7 @@ class GBPExternalPolicies(GBPResources):
     @staticmethod
     def resource_str(extpolicy):
         return "external policy {} (id {})".format(extpolicy['name'], extpolicy['id'])
-    
+
 class GBPExternalSegments(GBPResources):
 
     def list(self):
@@ -661,7 +661,7 @@ class GBPExternalSegments(GBPResources):
     @staticmethod
     def resource_str(extsegment):
         return "external segment {} (id {})".format(extsegment['name'], extsegment['id'])
-    
+
 class GBPNatPools(GBPResources):
 
     def list(self):
@@ -676,7 +676,7 @@ class GBPNatPools(GBPResources):
     @staticmethod
     def resource_str(natpool):
         return "nat pool {} (id {})".format(natpool['name'], natpool['id'])
-    
+
 class GBPPolicyRuleSets(GBPResources):
 
     def list(self):
@@ -691,7 +691,7 @@ class GBPPolicyRuleSets(GBPResources):
     @staticmethod
     def resource_str(ruleset):
         return "policy rule set {} (id {})".format(ruleset['name'], ruleset['id'])
-    
+
 class GBPolicyRules(GBPResources):
 
     def list(self):
@@ -706,7 +706,7 @@ class GBPolicyRules(GBPResources):
     @staticmethod
     def resource_str(rule):
         return "policy rule {} (id {})".format(rule['name'], rule['id'])
-    
+
 class GBPPolicyClassifiers(GBPResources):
 
     def list(self):
@@ -721,7 +721,7 @@ class GBPPolicyClassifiers(GBPResources):
     @staticmethod
     def resource_str(classifier):
         return "policy classifier {} (id {})".format(classifier['name'], classifier['id'])
-    
+
 class GBPPolicyActions(GBPResources):
 
     def list(self):
@@ -736,7 +736,7 @@ class GBPPolicyActions(GBPResources):
     @staticmethod
     def resource_str(action):
         return "policy action {} (id {})".format(action['name'], action['id'])
-    
+
 class KeystoneManager(object):
 
     """Manages Keystone queries."""
@@ -832,7 +832,7 @@ def perform_on_project(admin_name, password, project, auth_url,
                            'dump': resources.dump}
             res_actions[action]()
         except (exceptions.EndpointNotFound,
-                keystoneclient.openstack.common.apiclient.exceptions.EndpointNotFound,
+                api_exceptions.EndpointNotFound,
                 neutronclient.common.exceptions.EndpointNotFound,
                 cinderclient.exceptions.EndpointNotFound,
                 novaclient.exceptions.EndpointNotFound,
